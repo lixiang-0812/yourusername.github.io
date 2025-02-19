@@ -1,0 +1,295 @@
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>城舟专车官网</title>
+    <style>
+      /* 全局样式 */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* 导航栏样式 */
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 15px;
+        text-align: center;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+      }
+
+      /* 英雄区域样式 */
+      .hero {
+        background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+      }
+
+      .hero p {
+        font-size: 24px;
+        margin-bottom: 40px;
+      }
+
+      .btn {
+        background-color: #007BFF;
+        color: white;
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 18px;
+      }
+
+      /* 服务介绍区域样式 */
+      .services {
+        padding: 80px 0;
+        text-align: center;
+      }
+
+      .services h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+      }
+
+      .service {
+        display: inline-block;
+        width: 30%;
+        margin: 0 1.5%;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      .service i {
+        font-size: 48px;
+        color: #007BFF;
+        margin-bottom: 20px;
+      }
+
+      .service h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      /* 联系方式区域样式 */
+      .contact {
+        background-color: #f4f4f9;
+        padding: 80px 0;
+        text-align: center;
+      }
+
+      .contact h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+      }
+
+      /* 修改后的联系方式框样式，使其居中居右紧贴 */
+      .contact-box {
+        position: fixed;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        width: 60px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: width 0.3s ease;
+        z-index: 1000;
+      }
+
+      .contact-box:hover {
+        width: 300px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .contact-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        font-size: 24px;
+        color: #333;
+      }
+
+      .contact-details {
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      /* 修改选择器，添加空格 */
+      .contact-box:hover .contact-details {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .contact-details p {
+        margin: 10px 0;
+      }
+
+      /* 页脚上方联系方式区域样式 */
+      .footer-contact {
+        background-color: #f4f4f9;
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      .footer-contact h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .footer-contact p {
+        margin: 10px 0;
+      }
+
+      /* 页脚样式 */
+      footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 15px;
+      }
+
+      /* logo 样式 */
+      .company-logo {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1001;
+        cursor: pointer;
+        width: 270.87px; /* 约 150mm 换算后的像素值 */
+        height: 77.17px; /* 约 46mm 换算后的像素值 */
+      }
+
+      /* 企业文化弹窗样式 */
+      .culture-popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1002;
+      }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  </head>
+
+  <body>
+  <!-- 公司 logo -->
+  <img src="https://s21.ax1x.com/2025/02/19/pEQpFOK.png" alt="公司 logo" class="company-logo" id="companyLogo">
+
+  <!-- 企业文化弹窗 -->
+  <div class="culture-popup" id="culturePopup">
+    <h2>城舟专车</h2>
+    <p>杭州荣行科技有限公司是一家致力于为用户提供高效、安全、舒适出行服务的科技型企业。公司依托先进的互联网技术和大数据分析，构建了智能化的出行平台，连接乘客与司机，提供便捷的网约车服务。我们始终以用户需求为核心，不断创新服务模式，提升用户体验，致力于成为行业领先的出行解决方案提供商。。</p>
+    <button onclick="closeCulturePopup()">关闭</button>
+  </div>
+
+  <!-- 导航栏 -->
+  <nav>
+    <a href="#">首页</a>
+    <a href="#services-section">服务</a> <!-- 修改 href 属性指向服务介绍区域的 id -->
+    <a href="#">关于我们</a>
+    <a href="#footer-contact-section">联系我们</a>
+  </nav>
+
+  <!-- 英雄区域 -->
+  <div class="hero">
+    <div>
+      <h1>城舟专车</h1>
+      <p>安全、便捷、舒适的出行选择</p>
+      <a href="https://t.honghusaas.com/2wXkYpg" class="btn">立即出行</a>
+    </div>
+  </div>
+
+  <!-- 服务介绍区域，添加 id -->
+  <div class="services" id="services-section">
+    <h2>我们的优势</h2>
+    <div class="service">
+      <i class="fa-solid fa-car"></i>
+      <h3>即时叫车</h3>
+      <p>随时随地，一键叫车，快速响应，让您无需等待。</p>
+    </div>
+    <div class="service">
+      <i class="fa-solid fa-calendar-check"></i>
+      <h3>乘车体验</h3>
+      <p>单量更优，价格亲民，司机团队优质。</p>
+    </div>
+    <div class="service">
+      <i class="fa-solid fa-user-group"></i>
+      <h3>客服团队</h3>
+      <p>24小时不间断处理司乘问题</p>
+    </div>
+  </div>
+
+  <!-- 中间居右隐藏式联系方式 -->
+  <div class="contact-box">
+    <div class="contact-icon">📞</div>
+    <div class="contact-details">
+      <p>电话: <a href="tel:18866955183">18866955183</a></p>
+      <p>邮箱: <a href="mailto:idomcy@foxmail.com">idomcy@foxmail.com</a></p>
+      <p>地址: 浙江省杭州市拱墅区石祥路688号619室</p>
+    </div>
+  </div>
+
+  <!-- 页脚上方联系方式区域，添加 id -->
+  <div class="footer-contact" id="footer-contact-section">
+    <h2>联系方式</h2>
+    <p>电话: <a href="tel:18866955183">18866955183</a></p>
+    <p>邮箱: <a href="mailto:idomcy@foxmail.com">idomcy@foxmail.com</a></p>
+    <p>地址: 浙江省杭州市拱墅区石祥路688号619室</p>
+  </div>
+
+  <!-- 页脚 -->
+  <footer>
+    &copy; 2025 杭州荣行科技有限公司. 保留所有权利.
+  </footer>
+
+  <script>
+    // 显示企业文化弹窗
+    function showCulturePopup() {
+      const culturePopup = document.getElementById('culturePopup');
+      culturePopup.style.display = 'block';
+    }
+
+    // 关闭企业文化弹窗
+    function closeCulturePopup() {
+      const culturePopup = document.getElementById('culturePopup');
+      culturePopup.style.display = 'none';
+    }
+
+    // 为 logo 添加点击事件监听器
+    const companyLogo = document.getElementById('companyLogo');
+    companyLogo.addEventListener('click', showCulturePopup);
+  </script>
+  </body>
+
+  </html>
